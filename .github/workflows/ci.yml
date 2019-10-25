@@ -17,7 +17,7 @@ jobs:
         npm install
         npm install -g hexo-cli
         hexo generate
-    - uses: manyuanrong/setup-ossutil@v1
+    - uses: manyuanrong/setup-ossutil@v1.0
       with:
         # endpoint 可以去oss控制台上查看
         endpoint: "oss-cn-hongkong.aliyuncs.com"
