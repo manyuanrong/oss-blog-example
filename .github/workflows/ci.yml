@@ -13,10 +13,10 @@ jobs:
       with:
         node-version: "12.x"
     - name: Build Blog
-       run: |
-         npm install
-         npm install -g hexo-cli
-         hexo generate
+      run: |
+        npm install
+        npm install -g hexo-cli
+        hexo generate
     - uses: manyuanrong/setup-ossutil@v1
       with:
         # endpoint 可以去oss控制台上查看
