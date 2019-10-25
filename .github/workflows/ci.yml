@@ -1,0 +1,28 @@
+# workflow的名称，会显示在工作流运行页面
+name: MainWorkflow
+
+# 工作流执行的契机：push表示每次push代码之后都会执行
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: "12.x"
+    - name: Build Blog
+       run: |
+         npm install
+         npm install -g hexo-cli
+         hexo generate
+    - uses: manyuanrong/setup-ossutil@v1
+      with:
+        # endpoint 可以去oss控制台上查看
+        endpoint: "oss-cn-hongkong.aliyuncs.com"
+        # 使用我们之前配置在secrets里面的accesskeys来配置ossutil
+        access-key-id: ${{ secrets.ACCESS_KEY_ID }}
+        access-key-secret: ${{ secrets.ACCESS_KEY_SECRET }}
+    - name: Deply To OSS
+      run: ossutil cp public oss://enok-blog/ -f
